@@ -20,13 +20,13 @@ exports.sign_up = async function (req, res) {
 exports.sign_in = async function (req, res) {
     req.session.user = null;
     const body = req.body;
+    console.log(body);
     try {
         let user = await User.CheckUser(body.name);
         if (!user) return res.send({stat: 0, msg: '暂无该用户信息'});
         let temp_user = new User(user);
         const result = await temp_user.ComparePassword(body.password);
         if (result) {
-            console.log(temp_user);
             req.session.user = {name: req.body.name, id: temp_user._id};
             return res.send({stat: 0, msg: '登陆成功!'});
         }

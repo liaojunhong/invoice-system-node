@@ -13,6 +13,7 @@ const pkg = require('../package.json');
 
 const env = process.env.NODE_ENV || 'development';
 const router = require('./router');
+const login_verify = require('./middlewares/user_auth');
 
 module.exports = function (app) {
     // app.use(requireHttps);
@@ -51,7 +52,7 @@ module.exports = function (app) {
             saveUninitialized: true,
             secret: pkg.name,
             cookie: {
-                maxAge: 1000 * 60, // 设置 session 的有效时间，单位毫秒
+                maxAge: 1000 * 60 * 10, // 设置 session 的有效时间，单位毫秒
             },
             store: new mongoStore({
                 url: config.db,
@@ -62,7 +63,10 @@ module.exports = function (app) {
         })
     );
 
+    app.use(login_verify);
     app.use(router);
+
+
 };
 
 
