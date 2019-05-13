@@ -29,7 +29,7 @@ module.exports.delete_invoice = async function (req, res) {
     })
 };
 
-module.exports.find_invoice = async function (req, res) {
+module.exports.find_invoice_food = async function (req, res) {
     const date = req.query.date;
     try {
         let invoices = await Invoice.find({invoice_date: date});

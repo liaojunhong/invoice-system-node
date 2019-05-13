@@ -38,7 +38,7 @@ exports.sign_in = async function (req, res) {
 
 exports.sign_out = async function (req, res) {
     try {
-        req.session.user = null;
+        req.session.destroy();
         return res.send({stat: 0, msg: '退出成功!'});
     } catch (err) {
         return res.send({stat: 9999, msg: err})
