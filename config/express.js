@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 const express = require('express');
 const session = require('express-session');
@@ -17,7 +17,7 @@ const login_verify = require('./middlewares/user_auth');
 
 module.exports = function (app) {
     // app.use(requireHttps);
-
+    
     app.use(
         compression({
             threshold: 512
@@ -26,7 +26,7 @@ module.exports = function (app) {
 
     app.use(
         cors({
-            origin: 'http://localhost:3000', //配置跨域请求地址
+            origin: 'http://localhost:3001', //配置跨域请求地址
             optionsSuccessStatus: 200, // 跨域插件
             credentials: true
         })
@@ -36,6 +36,7 @@ module.exports = function (app) {
 
     app.set('views', config.root + '/app/views'); //配置视图
     app.set('view engine', 'html');
+    app.use(bodyParser.raw({ type: 'multipart/form-data' }));
 
     app.use(function (req, res, next) {
         res.locals.pkg = pkg;

@@ -6,7 +6,12 @@ const FoodSchema = new Schema({
     name: {
         type: String,
         require: true,
-        default: ''
+        default: '',
+        ref: 'Image'
+    },
+    images: {
+        type: String,
+        require: false
     },
     produce_price: {
         type: Number,

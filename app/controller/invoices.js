@@ -48,6 +48,19 @@ module.exports.find_invoice_food = async function (req, res) {
 };
 
 module.exports.find_invoice = async function (req, res) {
+    let page = ((parseInt(req.query.page) || 1) - 1) * 10;
+    try{
+        let count = await Invoice.countDocuments();
+        let data = await Invoice.find({}, null ,{skip : page}).limit(10).exec()
+        console.log(count);
+        console.log(data);
+        return res.send({stat: 0, data: data, count: count})
+
+    }catch(err){
+        console.log(err);
+        return res.send({stat: 2000, msg: '服务器错误，错误信息为' + err})
+    }
+
 
 };
 

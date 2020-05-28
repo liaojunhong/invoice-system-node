@@ -45,5 +45,19 @@ exports.sign_out = async function (req, res) {
     }
 
 };
+exports.get_userinfo = async function (req, res) {
+    console.log(req.session);
+    try {
+        await User.findById(req.session.user.id, (err, res) => {
+            if(err){
+                return res.send({stat: 1001, msg: '暂无该用户信息,请重新登录!'})
+            }
+            return res.send({stat: 0, data: res})   
+        });
+    } catch (err) {
+        return res.send({stat: 9999, msg: err})
+    }
+
+};
 
 
